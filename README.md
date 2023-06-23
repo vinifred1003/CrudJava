@@ -9,6 +9,8 @@ In Produto were created the methods of CRUD System
 
 In TelaProdutos is where all the System Design and System Fuctions are
 
+In Schema SQL you can use the Table Products.
+
 The Buttons:
 
 Novo is to delete the information in TextLabels and ImageLabel.
