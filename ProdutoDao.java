@@ -1,13 +1,14 @@
 package br.edu.ifpr.dao;
 
+
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
+
+
 
 public class ProdutoDao implements Dao {
 
@@ -95,6 +96,7 @@ public class ProdutoDao implements Dao {
             produto.setDescricao(rs.getString("descricao"));
             produto.setEstoque(rs.getInt("estoque"));
             produto.setPreco(rs.getDouble("preco"));
+            produto.setImagem(rs.getBytes("imagem"));
          }
          ps.close();
          rs.close();
@@ -134,6 +136,7 @@ public class ProdutoDao implements Dao {
    }
    public Produto buscarNoBanco(String termoBusca) {
 	   Produto produto = new Produto();
+	   
 	   String query = "SELECT * FROM produtos WHERE descricao LIKE '%" + termoBusca + "%'";
 	   try {
 	         ps = con.prepareStatement(query);
@@ -143,6 +146,7 @@ public class ProdutoDao implements Dao {
 	            produto.setDescricao(rs.getString("descricao"));
 	            produto.setEstoque(rs.getInt("estoque"));
 	            produto.setPreco(rs.getDouble("preco"));
+	            produto.setImagem(rs.getBytes("imagem"));
 	         }
 	         ps.close();
 	         rs.close();
@@ -152,5 +156,6 @@ public class ProdutoDao implements Dao {
 	      }
 	      return null;
 	   }
-   }
 
+
+}
