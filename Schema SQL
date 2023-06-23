@@ -1,1 +1,12 @@
+CREATE DATABASE sisifpr;
 
+USE sisifpr;
+
+CREATE TABLE produtos (
+  id int(11) NOT NULL AUTO_INCREMENT,
+  descricao varchar(45) NOT NULL,
+  estoque int(11) NOT NULL,
+  preco decimal(10,2) NOT NULL,
+  imagem longblob,
+  PRIMARY KEY (id)
+);
