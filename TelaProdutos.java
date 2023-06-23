@@ -84,7 +84,6 @@ public class TelaProdutos extends JFrame {
 				// 1-Recuperar o id do produto
 				int linha = table.getSelectedRow();
 				idSelecionado = (int) table.getValueAt(linha, 0);
-				System.out.println(idSelecionado);
 				
 				// 2-Obter os dados da linha
 				String descricao = (String) table.getValueAt(linha, 1);
@@ -95,6 +94,18 @@ public class TelaProdutos extends JFrame {
 				textDescricao.setText(descricao);
 				textEstoque.setText(estoque + "");
 				textPreco.setText(preco + "");
+				
+		        ProdutoDao p = new ProdutoDao();
+		        Produto produtoEncontrado = p.pesquisarId(idSelecionado);
+
+		        if (produtoEncontrado != null) {
+		            ImageIcon icone = new ImageIcon(produtoEncontrado.getImagem());
+		            icone.setImage(icone.getImage().getScaledInstance(PainelImagem.getWidth() - 5, PainelImagem.getHeight() - 10, 100));
+		            lbImagem.setIcon(icone);
+		        } else {
+		            // Produto não encontrado ou imagem não disponível
+		            lbImagem.setIcon(null);
+		        }
 				
 				insertUpdate = 2; // 1-insert; 2-update
 			}
@@ -179,7 +190,7 @@ public class TelaProdutos extends JFrame {
       		textDescricao.setText("");
 			textEstoque.setText("");
 			textPreco.setText("");
-			
+			lbImagem.setIcon(null);
 			// 1-insert 2-update
 			insertUpdate = 1; 
 		}
@@ -262,6 +273,10 @@ public class TelaProdutos extends JFrame {
                 textDescricao.setText(produtoEncontrado.getDescricao());
                 textEstoque.setText(Integer.toString(produtoEncontrado.getEstoque()));
                 textPreco.setText(Double.toString(produtoEncontrado.getPreco()));
+          
+                ImageIcon icone = new ImageIcon(produtoEncontrado.getImagem());
+                icone.setImage(icone.getImage().getScaledInstance(PainelImagem.getWidth() - 5 , PainelImagem.getHeight() -10, 100));
+                lbImagem.setIcon(icone);
             } else {
                 // Produto não encontrado
                 JOptionPane.showMessageDialog(null, "Produto não encontrado.");
@@ -356,6 +371,7 @@ public class TelaProdutos extends JFrame {
     	  return null;
       };
 private void abrirImagem (Object source) {
+	ProdutoDao produto = new ProdutoDao();
 	if (source instanceof File) {
 		ImageIcon icon = new ImageIcon(imagem.getAbsolutePath());
 		icon.setImage(icon.getImage().getScaledInstance(PainelImagem.getWidth()- 5 , PainelImagem.getHeight() -10, 100));
